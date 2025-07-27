@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Puntos de venta y tipos de comprobante</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	<script type="text/javascript">
+		function obtenerDatos(event){
+			event.preventDefault();
+			const formData = new FormData(event.target);
+
+			const puntodeVenta = formData.get("puntodeVenta");
+			const tipodeDocumento = formData.get("tipodeDocumento");
+
+			localStorage.setItem("puntodeVenta", puntodeVenta);
+			localStorage.setItem("tipodeDocumento", tipodeDocumento);
+
+			window.location.href = "paso 2.html";
+		}
+	</script>
+</head>
+<body>
+	<header><h2 class="titulo">Puntos de Venta y Tipos de Comprobantes (1/4)</h2></header>
+	<a href="datos del emisor.html" class="anterior"> << anterior</a>
+	<div class="recuadro">
+		<form onsubmit="obtenerDatos(event)" method="get">
+			<strong>Puntos de venta a utilizar</strong><input type="text" name="puntodeVenta"><br><br>
+			<h4>Tipos de Comprobante:</h4>
+			<label>Factura A</label><input type="radio" value="facturaA" name="tipodeDocumento" required=" "><br>
+			<label>Nota de crédito A</label><input type="radio" value="notaCreditoA" name="tipodeDocumento"><br>
+			<label>Nota de débito A</label><input type="radio" value="notaDebitoA" name="tipodeDocumento"><br>
+			<label>Recibo A</label><input type="radio" value="reciboA" name="tipodeDocumento"><br>
+			<label>Factura B</label><input type="radio" value="facturaB" name="tipodeDocumento"><br>
+			<label>Nota de crédito B</label><input type="radio" value="notaCreditoB" name="tipodeDocumento"><br>
+			<label>Nota de débito B</label><input type="radio" value="notaDebitoB" name="tipodeDocumento"><br>
+			<label>Recibo B</label><input type="radio" value="reciboB" name="tipodeDocumento"><br>
+			<label>Factura T</label><input type="radio" value="facturaT" name="tipodeDocumento"><br>
+			<label>Nota de crédito T</label><input type="radio"value="notaCreditoT" name="tipodeDocumento"><br>
+			<label>Nota de débito T</label><input type="radio" value="notaDebitoT" name="tipodeDocumento"><br>
+			<label>Factura de crédito electrónica MiPyMes (FCE) A</label><input type="radio" value="facturaElectronicaA" name="tipodeDocumento"><br>
+			<label>Nota de crédito electrónica MiPyMes (FCE) A</label><input type="radio" value="notaCreditoElectronicaA" name="tipodeDocumento"><br>
+			<label>Nota de débito electrónica MiPyMes (FCE) A</label><input type="radio" value="notaDebitoElectronicaA" name="tipodeDocumento"><br>
+			<label>Factura de crédito electrónica MiPyMes (FCE) B</label><input type="radio" value="facturaElectronicaB" name="tipodeDocumento"><br>
+			<label>Nota de crédito electrónica MiPyMes (FCE) B</label><input type="radio" value="notaCreditoElectronicaB" name="tipodeDocumento"><br>
+			<label>Nota de débito electrónica MiPyMes (FCE) B</label><input type="radio" value="notaDebitoElectronicaB" name="tipodeDocumento"><br><br>
+			<input type="submit" name="siguiente">
+		</form>
+	</div>
+</body>
+</html>

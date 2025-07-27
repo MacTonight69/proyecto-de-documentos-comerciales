@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>paso 2</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	<script type="text/javascript">
+		function obtenerDatos(event){
+			event.preventDefault();
+			const formData = new FormData(event.target);
+
+			const fecha = formData.get("fecha");
+			const conceptosAIncluir = formData.get("conceptosAIncluir");
+
+			localStorage.setItem("fecha", fecha);
+			localStorage.setItem("conceptosAIncluir", conceptosAIncluir);
+
+			window.location.href = "paso 3.html";
+		}
+	</script>
+</head>
+<body>
+	<header><h2>Datos de Emisión (2/4)</h2></header>
+	<a href="paso 1.html" class="anterior"> << anterior</a>
+	<div class="recuadro">
+		<form method="get" onsubmit="obtenerDatos(event)">
+			<strong>Fecha del Comprobante</strong><input type="date" name="fecha" required=" "><br>
+			<h4>Conceptos a Incluir:</h4>
+			<label for="Productos">Productos</label><input type="radio" name="conceptosAIncluir" value="productos" required=" "><br>
+			<label for="Servicios">Servicios</label><input type="radio" name="conceptosAIncluir" value="servicios"><br>
+			<label for="Productos y Servicios">Productos y Servicios</label><input type="radio" name="conceptosAIncluir" value="productosyservicios"><br><br>
+			<input type="submit" name="subir">
+		</form>
+	</div>
+
+</body>
+</html>
