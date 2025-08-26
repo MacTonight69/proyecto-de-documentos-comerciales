@@ -50,11 +50,12 @@
 	<a href="paso 2.html" class="anterior"><< anterior</a>
 	<form method="get" onsubmit="obtenerDatos(event);" id="form">
 		<div class="recuadro">
-			<b>Condición frente al IVA</b><br>
-			<label>IVA Responsable Inscripto</label><input type="radio" name="condicionIVA" value="reponsableInscripto" required=" "><br>
-			<label>Responable Monotributo</label><input type="radio" name="condicionIVA" value="responsableMonotributo"><br>
-			<label>Monotributista Social</label><input type="radio" name="condicionIVA" value="MonotributistaSocial"><br>
-			<label>Monotributista Trabajador Independiente Promovido</label><input type="radio" name="condicionIVA" value="monotributistaTrabajador"><br><br>
+			<b>Condición frente al IVA</b><br><select name="condicionIVA"> 
+				<option value="reponsableInscripto">IVA Responsable Inscripto</option>
+				<option value="responsableMonotributo">Responsable Monotributo</option>
+				<option value="monotributistaSocial">Monotributista Social</option>
+				<option value="monotributistaTrabajador">Monotributista Trabajador Independiente Promovido</option>
+			</select><br><br>
 			<b>CUIT </b><input type="number" name="CUIT" required="
 			"><br>
 			<b>Razón Social </b><input type="text" name="razonSocial" required="
@@ -77,4 +78,5 @@
 		</div>
 	</form>
 </body>
+
 </html>
