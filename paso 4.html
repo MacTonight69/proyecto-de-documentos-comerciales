@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	<title>Datos de la Operación</title>
+	<script>
+		const tenplate = document.getElementById()
+		const tabla=document.getElementById("tabla"), cantProductos=3, botonAgregar=document.getElementById('botonAgregar');
+		const strBotonAgregar=`<tr><button id="botonAgregar" onclick="ingresarCampoDeProducto()"> + </button></tr>`;
+		const strCampoDeInputs = document.createElement(`
+		<tr>
+			<td><input type="number" class="inputEnTablaDeDatosB"></td>
+			<td><input type="text" class="inputEnTablaDeDatosB"></td>
+			<td><input type="number" class="inputEnTablaDeDatosB"></td>
+			<td>
+				<select name="uDeMedida" required>
+					<option value="kg">Kilogramo</option>
+					<option value="g">gramo</option>
+					<option value="m">Metros</option>
+					<option value="cm">Centimetros</option>
+					<option value="li">Litros</option>
+					<option value="ml">Mililitros</option>
+					<option value="oz">Onzas</option>
+				</select>
+			</td>
+			<td><input type="number"class="inputEnTablaDeDatosB"></td>
+			<td><input type="number" class="inputEnTablaDeDatosB"></td>
+			<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
+			<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
+			<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
+			<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
+			<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
+			<td><button class="botonBorrar" onclick=""> X </button>  </td>
+		</tr>
+		`);
+		for(let i=0;i<3;i++){
+			tabla.appendChild(strCampoDeInputs);
+		}
+		function ingresarCampoDePorducto(){
+			
+		}
+		function inactivarCampodeProducto(){
+			cantProductos--;
+		}
+	</script>
+</head>
+<body>
+	<header><h2>Datos de la Operación (4/4)</h2></header>
+
+	<a href="paso 2.html" class="anterior"><< anterior</a>
+	
+	<div class="recuadro3">
+		<table border="2" id="tabla">
+			<tr>
+				<td>Código </td>
+				<td>Producto/Servicio</td>
+				<td>Cantidad</td>
+				<td>U. de Medida</td>
+				<td>Precio Unitario</td>
+				<td>% Bonificación</td>
+				<td>Importe de Bonificacion</td>
+				<td>Subtotal</td>
+				<td>Alicuota IVA</td>
+				<td>Importe</td>
+				<td>Subtotal con IVA</td>
+				<td class="borrar">Borrar</td>
+			</tr>
+
+			<tr>
+				<td><input type="number" class="inputEnTablaDeDatosB"></td>
+				<td><input type="text" class="inputEnTablaDeDatosB"></td>
+				<td><input type="number" class="inputEnTablaDeDatosB"></td>
+				<td>
+					<select name="uDeMedida" required>
+						<option value="kg">Kilogramo</option>
+						<option value="g">gramo</option>
+						<option value="m">Metros</option>
+						<option value="cm">Centimetros</option>
+						<option value="li">Litros</option>
+						<option value="ml">Mililitros</option>
+						<option value="oz">Onzas</option>
+					</select>
+				</td>
+				<td><input type="number"class="inputEnTablaDeDatosB"></td>
+				<td><input type="number" class="inputEnTablaDeDatosB"></td>
+				<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
+				<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
+				<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
+				<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
+				<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
+				<td><button class="botonBorrar" onclick=""> X </button>  </td>
+			</tr>
+
+			<tr>
+				<td><input type="number" class="inputEnTablaDeDatosB"></td>
+				<td><input type="text" class="inputEnTablaDeDatosB"></td>
+				<td><input type="number" class="inputEnTablaDeDatosB"></td>
+				<td>
+					<select name="uDeMedida" required>
+						<option value="kg">Kilogramo</option>
+						<option value="g">gramo</option>
+						<option value="m">Metros</option>
+						<option value="cm">Centimetros</option>
+						<option value="li">Litros</option>
+						<option value="ml">Mililitros</option>
+						<option value="oz">Onzas</option>
+					</select>
+				</td>
+				<td><input type="number"class="inputEnTablaDeDatosB"></td>
+				<td><input type="number" class="inputEnTablaDeDatosB"></td>
+				<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
+				<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
+				<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
+				<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
+				<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
+				<td><button class="botonBorrar" onclick=""> X </button>  </td>
+			</tr>
+
+			<tr>
+				<td><input type="number" class="inputEnTablaDeDatosB"></td>
+				<td><input type="text" class="inputEnTablaDeDatosB"></td>
+				<td><input type="number" class="inputEnTablaDeDatosB"></td>
+				<td>
+					<select name="uDeMedida" required>
+						<option value="kg">Kilogramo</option>
+						<option value="g">gramo</option>
+						<option value="m">Metros</option>
+						<option value="cm">Centimetros</option>
+						<option value="li">Litros</option>
+						<option value="ml">Mililitros</option>
+						<option value="oz">Onzas</option>
+					</select>
+				</td>
+				<td><input type="number"class="inputEnTablaDeDatosB"></td>
+				<td><input type="number" class="inputEnTablaDeDatosB"></td>
+				<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
+				<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
+				<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
+				<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
+				<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
+				<td><button class="botonBorrar" onclick=""> X </button>  </td>
+			</tr>
+		</table>
+		<button id="botonAgregar" onclick="ingresarCampoDeProducto()"> + </button><button id="botonBorrar" onclick="eliminarCampodeProducto()"> - </button>
+	</div>
+</body>
+</html>
