@@ -24,14 +24,16 @@
 	<a href="paso 1.html" class="anterior"> << anterior</a>
 	<div class="recuadro">
 		<form method="get" onsubmit="obtenerDatos(event)">
-			<strong>Fecha del Comprobante</strong><input type="date" name="fecha" required=" "><br>
-			<h4>Conceptos a Incluir:</h4>
-			<label for="Productos">Productos</label><input type="radio" name="conceptosAIncluir" value="productos" required=" "><br>
-			<label for="Servicios">Servicios</label><input type="radio" name="conceptosAIncluir" value="servicios"><br>
-			<label for="Productos y Servicios">Productos y Servicios</label><input type="radio" name="conceptosAIncluir" value="productosyservicios"><br><br>
+			<b>Fecha del Comprobante</b><input type="date" name="fecha" required=" "><br>
+			<select name="conceptosAIncluir" required>
+				<option value="producto">Productos</option>
+				<option value="servicio">Servicios</option>
+				<option value="productoYServicio">Productos y Servicios</option>
+			</select><br><br>
 			<input type="submit" name="subir">
 		</form>
 	</div>
 
 </body>
+
 </html>
