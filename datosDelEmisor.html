@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulario Emisor</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body class="bg-light d-flex justify-content-center align-items-center min-vh-100">
+  <div class="card shadow p-4" style="max-width: 600px; width: 100%;">
+    <h4 class="mb-4 text-center">Datos del Emisor</h4>
+    <form id="empresaForm" novalidate>
+      <div class="mb-3">
+        <label for="razonSocial" class="form-label">Razón Social</label>
+        <input type="text" class="form-control" id="razonSocial" required />
+        <div class="invalid-feedback">Por favor ingrese la razón social.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="cuit" class="form-label">CUIT</label>
+        <input type="number" class="form-control" id="cuit" required />
+        <div class="invalid-feedback">Por favor ingrese un CUIT válido.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="domicilio" class="form-label">Domicilio Comercial</label>
+        <input type="text" class="form-control" id="domicilio" required />
+        <div class="invalid-feedback">Por favor ingrese el domicilio comercial.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="condicionIVA" class="form-label">Condición frente al IVA</label>
+        <select class="form-select" id="condicionIVA" required>
+          <option value="">Seleccione...</option>
+          <option value="IVA Responsable Inscripto">IVA Responsable Inscripto</option>
+          <option value="Responsable Monotributo">Responsable Monotributo</option>
+          <option value="Monotributista Social">Monotributista Social</option>
+          <option value="Monotributista Trabajador Independiente Promovido">Monotributista Trabajador Independiente Promovido</option>
+        </select>
+        <div class="invalid-feedback">Por favor seleccione una condición frente al IVA.</div>
+      </div>
+
+      <div class="mb-4">
+        <label for="fechaInicio" class="form-label">Fecha de Inicio de Actividades</label>
+        <input type="date" class="form-control" id="fechaInicio" required />
+        <div class="invalid-feedback">Por favor seleccione una fecha válida.</div>
+      </div>
+
+      <div class="d-flex justify-content-between mt-4">
+    	<button class="btn btn-secondary" onclick="window.location.href='index.html'">Anterior</button>
+    	<button class="btn btn-primary" onclick="guardarYContinuar()">Siguiente</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+	// se crea la constante Form para manejar el formulario mas adelante
+    const form = document.getElementById('empresaForm');
+
+	// Cargar datos guardados si existen utilizando formato JSON
+    const savedData = JSON.parse(localStorage.getItem('Data'));
+
+    // Al cargar la página, restaurar datos si existen
+    window.addEventListener('DOMContentLoaded', () => {
+      if (savedData) {
+        document.getElementById('razonSocial').value = savedData.razonSocial || '';
+        document.getElementById('cuit').value = savedData.cuit || '';
+        document.getElementById('domicilio').value = savedData.domicilio || '';
+        document.getElementById('condicionIVA').value = savedData.condicionIVA || '';
+        document.getElementById('fechaInicio').value = savedData.fechaInicio || '';
+      } else {
+		// si no existen datos guardados, se asigna la fecha actual al campo fechaInicio
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('fechaInicio').value = today;
+      }
+    });
+
+    // Validación al enviar
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      let isValid = true;
+
+      // Lista de campos a validar
+      const fields = ['razonSocial', 'cuit', 'domicilio', 'condicionIVA', 'fechaInicio'];
+
+	  // Comprueba que todos los campos que se encuentran en la lista "fields" esten completos
+      fields.forEach(id => {
+        const input = document.getElementById(id);
+        if (!input.value || input.value === '') {
+          input.classList.add('is-invalid');
+          isValid = false;
+        } else {
+          input.classList.remove('is-invalid');
+        }
+      });
+  
+      if (!isValid) {
+        return; // No continuar si hay campos inválidos
+      }
+
+      // Si todos los campos están completos, guardar y redirigir
+      const data = {
+        razonSocial: document.getElementById('razonSocial').value,
+        cuit: document.getElementById('cuit').value,
+        domicilio: document.getElementById('domicilio').value,
+        condicionIVA: document.getElementById('condicionIVA').value,
+        fechaInicio: document.getElementById('fechaInicio').value
+      };
+
+	  //se guarda la información en formato JSON en localStorage con el nombre 'Data'
+      localStorage.setItem('Data', JSON.stringify(data));
+	  
+      window.location.href = "paso1.html";
+    });
+  </script>
+</body>
+</html>
