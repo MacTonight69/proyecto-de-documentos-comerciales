@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Formulario Recetor</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<meta charset="utf-8">
+</head>
+<body class=" bg-light d-flex justify-content-center align-items-center min-vh-100">
+	<div class="card shadow p-4" style="max-width: 750px; width: 100%;">
+		<h4 class="mb-4 text-center">Datos del Receptor</h4>
+		<form id="form" required>
+			<div class="mb-3 ">
+				<label class="form-label" for="condicionIVA">Condicion Frentee al IVA</label>
+				<select class="form-select">
+					<option value="">Seleccione...</option>
+					<option value="responsableInscripto">IVA Responsable Inscripto</option>
+					<option value="responsableMonotributo">Responsable Monotributo</option>
+					<option value="monotributistaSocial">Monotributista Social</option>
+					<option value="monotributistaTrabajador">Monotributista Trabajador Independiente Pormovido</option>
+				</select>
+				<div class="invalid-feedback">Ingrese la condicion frente al IVA correspondiente</div>
+			</div>
+			
+			<div class="mb-3">
+				<label class="form-label" for="CUIT">CUIT</label>
+				<input type="number" class='form-control' name="CUIT" required>
+				<div class="invalid-feedback">Ingrese el CUIT</div>
+			</div>
+
+			<div class="mb-3">
+				<label class="form-label" for="razonSocial">Razon Social</label>
+				<input type="text" name="razonSocial" class='form-control' required>
+				<div class="invalid-feedback">Ingrese la Razon Social</div>
+			</div>
+			
+			<div class="mb-3">
+				<label class="form-label" for="domicilioComercial">Domicilio Comercial</label>
+				<input type="text" class='form-control' name="domicilioComercial" required>
+				<div class="invalid-feedback">Ingrese el Domicilio Comercial</div>
+			</div>
+
+			<div class="mb-3">
+				<label class="form-label" for="email">Email</label>
+				<input type="email" class='form-control' name="email" required>
+				<div class="invalid-feedback">Ingrese el Email</div>
+			</div>
+
+			<div class="mt-4">
+				<h5>Condiciones de Venta</h5>
+				<label class="form-label">Contado </label><input type="checkbox" value="contado" required><br>
+				<label class="form-label">Tarjeta de Débito </label><input type="checkbox" class="" value="targetaDébito"><br>
+				<label class="form-label">Tarjeta de Crédito </label><input type="checkbox" value="targetaCrédito"><br>
+				<label class="form-label">Cuenta Corriente </label><input type="checkbox" value="cuentaCorriente"><br>
+				<label class="form-label">Cheque </label><input type="checkbox" value="cheque"><br>
+				<label class="form-label">Ticket </label><input type="checkbox" value="ticket"><br>
+				<label class="form-label">Otra </label><input type="checkbox" value="otra"><br>
+				<div class="invalid-feedback">Ingrese el Email</div>
+			</div>
+
+			<div class="d-flex justify-content-between mt-4">
+				<button class="btn btn-secondary" onclick="window.location.href='paso2.html'">Anterior</button>
+				<button class="btn btn-primary" onclick="window.location.href='paso4.html'">Siguiente</button>
+			</div>
+		</form>
+	</div>
+</body>
+</html>
