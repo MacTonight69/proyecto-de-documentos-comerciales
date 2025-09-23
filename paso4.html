@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+	<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
@@ -7,114 +7,53 @@
 	<title>Datos de la Operación</title>
 </head>
 <body class="bg-light d-flex justify-content-center align-items-center min-vh-100">
-	<div class="card shadow p-4" style="max-width: 750px; width: 100%;">
+	<div class="card shadow p-4">
 		<h4 class="mb-4 text-center">Datos de la Operacion</h4>
 		<form id="form">
-			
+			<table class="card p-3 mb-2 bg-light-subtle table table-bordered" style=" border-color: rgba(69, 69, 69, 6.9);">
+				<tr>
+					<td class="text-center">Código</td>
+					<td class="text-center">Producto/Servicio</td>
+					<td class="text-center">Cantidad</td>
+					<td class="text-center">U. de Medida</td>
+					<td class="text-center">Precio Unitario</td>
+					<td class="text-center">% Bonificación</td>
+					<td class="text-center">Importe de Bonificacion</td>
+					<td class="text-center">Subtotal</td>
+					<td class="text-center">Alicuota IVA</td>
+					<td class="text-center">Importe</td>
+					<td class="text-center">Subtotal con IVA</td>
+					<td class="text-danger text-center">Borrar</td>
+				</tr>
+
+				<tr>
+					<td><input type="number" class="form-control" ></td>
+					<td><input type="text" class="form-control"></td>
+					<td><input type="number" class="form-control"></td>
+					<td>
+						<select name="uDeMedida" class="form-select" required>
+							<option value="">...</option>
+							<option value="kg">Kilogramo</option>
+							<option value="g">gramo</option>
+							<option value="m">Metros</option>
+							<option value="cm">Centimetros</option>
+							<option value="li">Litros</option>
+							<option value="ml">Mililitros</option>
+							<option value="oz">Onzas</option>
+						</select>
+					</td>
+					<td><input type="number"class="form-control"></td>
+					<td><input type="number" class="form-control"></td>
+					<td><input type="number" readonly class="form-control"></td>
+					<td><input type="number" readonly class="form-control"></td>
+					<td><input type="number" readonly class="form-control"></td>
+					<td><input type="number" readonly class="form-control"></td>
+					<td><input type="number" readonly class="form-control"></td>
+					<td><button class="btn btn-danger" onclick=""> X </button>  </td>
+				</tr>
+			</table>
+
 		</form>
 	</div>
-
-
-
-		// inicio codigo antiguo a modificar
-	<header><h2>Datos de la Operación (4/4)</h2></header>
-
-	<a href="paso 2.html" class="anterior"><< anterior</a>
-	
-	<div class="recuadro3">
-		<table border="2" id="tabla">
-			<tr>
-				<td>Código </td>
-				<td>Producto/Servicio</td>
-				<td>Cantidad</td>
-				<td>U. de Medida</td>
-				<td>Precio Unitario</td>
-				<td>% Bonificación</td>
-				<td>Importe de Bonificacion</td>
-				<td>Subtotal</td>
-				<td>Alicuota IVA</td>
-				<td>Importe</td>
-				<td>Subtotal con IVA</td>
-				<td class="borrar">Borrar</td>
-			</tr>
-
-			<tr>
-				<td><input type="number" class="inputEnTablaDeDatosB"></td>
-				<td><input type="text" class="inputEnTablaDeDatosB"></td>
-				<td><input type="number" class="inputEnTablaDeDatosB"></td>
-				<td>
-					<select name="uDeMedida" required>
-						<option value="kg">Kilogramo</option>
-						<option value="g">gramo</option>
-						<option value="m">Metros</option>
-						<option value="cm">Centimetros</option>
-						<option value="li">Litros</option>
-						<option value="ml">Mililitros</option>
-						<option value="oz">Onzas</option>
-					</select>
-				</td>
-				<td><input type="number"class="inputEnTablaDeDatosB"></td>
-				<td><input type="number" class="inputEnTablaDeDatosB"></td>
-				<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
-				<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
-				<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
-				<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
-				<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
-				<td><button class="botonBorrar" onclick=""> X </button>  </td>
-			</tr>
-
-			<tr>
-				<td><input type="number" class="inputEnTablaDeDatosB"></td>
-				<td><input type="text" class="inputEnTablaDeDatosB"></td>
-				<td><input type="number" class="inputEnTablaDeDatosB"></td>
-				<td>
-					<select name="uDeMedida" required>
-						<option value="kg">Kilogramo</option>
-						<option value="g">gramo</option>
-						<option value="m">Metros</option>
-						<option value="cm">Centimetros</option>
-						<option value="li">Litros</option>
-						<option value="ml">Mililitros</option>
-						<option value="oz">Onzas</option>
-					</select>
-				</td>
-				<td><input type="number"class="inputEnTablaDeDatosB"></td>
-				<td><input type="number" class="inputEnTablaDeDatosB"></td>
-				<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
-				<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
-				<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
-				<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
-				<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
-				<td><button class="botonBorrar" onclick=""> X </button>  </td>
-			</tr>
-
-			<tr>
-				<td><input type="number" class="inputEnTablaDeDatosB"></td>
-				<td><input type="text" class="inputEnTablaDeDatosB"></td>
-				<td><input type="number" class="inputEnTablaDeDatosB"></td>
-				<td>
-					<select name="uDeMedida" required>
-						<option value="kg">Kilogramo</option>
-						<option value="g">gramo</option>
-						<option value="m">Metros</option>
-						<option value="cm">Centimetros</option>
-						<option value="li">Litros</option>
-						<option value="ml">Mililitros</option>
-						<option value="oz">Onzas</option>
-					</select>
-				</td>
-				<td><input type="number"class="inputEnTablaDeDatosB"></td>
-				<td><input type="number" class="inputEnTablaDeDatosB"></td>
-				<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
-				<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
-				<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
-				<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
-				<td><input type="number" readonly class="inputEnTablaDeDatosA"></td>
-				<td><button class="botonBorrar" onclick=""> X </button>  </td>
-			</tr>
-		</table>
-		<button id="botonAgregar" onclick="ingresarCampoDeProducto()"> + </button><button id="botonBorrar" onclick="eliminarCampodeProducto()"> - </button>
-	</div>
-			//fin codigo antiguo a modificar
 </body>
 </html>
