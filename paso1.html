@@ -33,19 +33,53 @@
 					<option value="notadebitoT">Nota de debito T</option>
 					<option value="facturaCreditoElectronicaA">Factura de Credito Electronica MiPyMes A</option>
 					<option value="notaCreditoElectronicaA">Nota de Credito Electronica MiPyMes A</option>
-					<option value="notaDebitoElectronicaA">Nota de Debito Electronica MiPyMes A</option>d
+					<option value="notaDebitoElectronicaA">Nota de Debito Electronica MiPyMes A</option>
 					<option value="facturaCreditoElectronicaB">Factura de Credito Electronica MiPyMes B</option>
 					<option value="notaCreditoElectronicaB">Nota de Credito Electronica MiPyMes B</option>
 					<option value="notaDebitoElectronicaB">Nota de Debito Electronica MiPyMes B</option>
 				</select>
-				<div class="invalid-feedback"> Ingrese el punto de venta a utilizar</div>
+				<div class="invalid-feedback"> Seleccione el tipo de documento</div>
 			</div>
 
 			<div class="d-flex justify-content-between mt-4">
-				<button class="btn btn-secondary" onclick="window.location.href = 'datosDelEmisor.html'">Anterior</button>
-				<button class="btn btn-primary" onclick="window.location.href = 'paso2.html'">Siguiente</button>
+				<button type="button" class="btn btn-secondary" onclick="window.location.href = 'datosEmisor.html'">Anterior</button>
+				<button type="submit" class="btn btn-primary">Siguiente</button>
 			</div>
 		</form>
 	</div>
+	<script type="text/javascript">
+		const form=document.getElementById('form');
+		const datosGuardados=JSON.parse(localStorage.getItem('DataPaso1'));
+		window.addEventListener("DOMContentLoaded", () => {
+			if(datosGuardados){
+				document.getElementById('puntoDeVenta').value=datosGuardados.puntoDeVenta || '';
+				document.getElementById('tipoDeDocumento').value=datosGuardados.tipoDeDocumento || '';
+			}
+		});
+		form.addEventListener("submit", function(event){
+			event.preventDefault();
+			let validar=true;
+			const campos = ["puntoDeVenta", "tipoDeDocumento"];
+
+			campos.forEach(id =>{
+				const input=document.getElementById(id);
+				if(!input.value || input.value === ''){
+					input.classList.add("is-invalid");
+					validar=false;
+				} else{
+					input.classList.remove("is-invalid");
+				}
+			});
+
+			if(!validar) return;
+
+			const data = {
+				puntoDeVenta: document.getElementById('puntoDeVenta').value,
+				tipoDeDocumento: document.getElementById('tipoDeDocumento').value
+			};
+			localStorage.setItem('DataPaso1', JSON.stringify(data));
+			window.location.href = 'paso2.html';
+		});
+	</script>
 </body>
 </html>
