@@ -11,11 +11,12 @@
 		<form id="form">
 			<div class="mb-3">
 				<label class="form-label" for="fechaDeComprobante">Fecha de Comprobante</label>
-				<input type="date" class='form-control' name="fechaDeComprobante" required>
+				<input type="date" class='form-control' id="fechaDeComprobante" required>
 				<div class="invalid-feedback">Ingrese la fecha de emision del comprobante</div>
 			</div>
 
 			<div class="mb-3">
+				<label class="form-label" for="conceptosAIncluir">Conceptos a Incluir</label>
 				<select class="form-select" id="conceptosAIncluir" required>
 					<option value="">Seleccione...</option>
 					<option value="producto">Producto</option>
@@ -26,10 +27,48 @@
 			</div>
 
 			<div class="d-flex justify-content-between mt-4">
-				<button class="btn btn-secondary" onclick="window.location.href='paso1.html'">Anterior</button>
-				<button class="btn btn-primary" onclick="window.location.href='paso3.html'">Siguiente</button>
+				<button type="button" class="btn btn-secondary" onclick="window.location.href='paso1.html'">Anterior</button>
+				<button type="submit" class="btn btn-primary">Siguiente</button>
 			</div>
 		</form>
 	</div>
+	<script type="text/javascript">
+		const form=document.getElementById('form');
+		const datosGuardados = JSON.parse(localStorage.getItem('DataPaso2'));
+		window.addEventListener("DOMContentLoaded", () => {
+			if(datosGuardados){
+				document.getElementById('fechaDeComprobante').value = datosGuardados.fechaDeComprobante || '';
+				document.getElementById('conceptosAIncluir').value = datosGuardados.conceptosAIncluir || '';
+			} else{
+				const fecha = new Date().toISOString().split('T')[0];
+        		document.getElementById('fechaDeComprobante').value = fecha;
+			}
+		});
+
+		form.addEventListener("submit", function(event){
+			event.preventDefault();
+			let validar=true;
+			const campos = ["fechaDeComprobante", "conceptosAIncluir"];
+
+			campos.forEach(id =>{
+				const input = document.getElementById(id);
+				if(!input.value || input.value===''){
+					validar=false;
+					input.classList.add('is-invalid');
+				} else{
+					input.classList.remove('is-invalid');
+				}
+			});
+
+			if(!validar) return;
+
+			const data={
+				fechaDeComprobante: document.getElementById('fechaDeComprobante').value,
+				conceptosAIncluir: document.getElementById('conceptosAIncluir').value
+			};
+			localStorage.setItem('DataPaso2' ,JSON.stringify(data));
+			window.location.href='paso3.html';
+		});
+	</script>
 </body>
 </html>
