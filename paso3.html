@@ -10,8 +10,8 @@
 		<h4 class="mb-4 text-center">Datos del Receptor</h4>
 		<form id="form" required>
 			<div class="mb-3 ">
-				<label class="form-label" for="condicionIVA">Condicion Frentee al IVA</label>
-				<select class="form-select">
+				<label class="form-label" for="condicionIVA">Condicion Frente al IVA</label>
+				<select class="form-select" id="condicionIVA">
 					<option value="">Seleccione...</option>
 					<option value="responsableInscripto">IVA Responsable Inscripto</option>
 					<option value="responsableMonotributo">Responsable Monotributo</option>
@@ -23,37 +23,37 @@
 			
 			<div class="mb-3">
 				<label class="form-label" for="CUIT">CUIT</label>
-				<input type="number" class='form-control' name="CUIT" required>
+				<input type="number" class='form-control' id="CUIT" required>
 				<div class="invalid-feedback">Ingrese el CUIT</div>
 			</div>
 
 			<div class="mb-3">
 				<label class="form-label" for="razonSocial">Razon Social</label>
-				<input type="text" name="razonSocial" class='form-control' required>
+				<input type="text" id="razonSocial" class='form-control' required>
 				<div class="invalid-feedback">Ingrese la Razon Social</div>
 			</div>
 			
 			<div class="mb-3">
 				<label class="form-label" for="domicilioComercial">Domicilio Comercial</label>
-				<input type="text" class='form-control' name="domicilioComercial" required>
+				<input type="text" class='form-control' id="domicilioComercial" required>
 				<div class="invalid-feedback">Ingrese el Domicilio Comercial</div>
 			</div>
 
 			<div class="mb-3">
 				<label class="form-label" for="email">Email</label>
-				<input type="email" class='form-control' name="email" required>
+				<input type="email" class='form-control' id="email" required>
 				<div class="invalid-feedback">Ingrese el Email</div>
 			</div>
 
 			<div class="mt-4">
 				<h5>Condiciones de Venta</h5>
-				<label class="form-label">Contado </label><input type="checkbox" value="contado" required><br>
-				<label class="form-label">Tarjeta de Débito </label><input type="checkbox" class="" value="targetaDébito"><br>
-				<label class="form-label">Tarjeta de Crédito </label><input type="checkbox" value="targetaCrédito"><br>
-				<label class="form-label">Cuenta Corriente </label><input type="checkbox" value="cuentaCorriente"><br>
-				<label class="form-label">Cheque </label><input type="checkbox" value="cheque"><br>
-				<label class="form-label">Ticket </label><input type="checkbox" value="ticket"><br>
-				<label class="form-label">Otra </label><input type="checkbox" value="otra"><br>
+				<label class="form-label">Contado </label><input type="checkbox" id="contado" value="contado" required><br>
+				<label class="form-label">Tarjeta de Débito </label><input type="checkbox" id="targetaDébito" value="targetaDébito"><br>
+				<label class="form-label">Tarjeta de Crédito </label><input type="checkbox" id="targetaCrédito" value="targetaCrédito"><br>
+				<label class="form-label">Cuenta Corriente </label><input type="checkbox" id="cuentaCorriente" value="cuentaCorriente"><br>
+				<label class="form-label">Cheque </label><input type="checkbox" id="cheque" value="cheque"><br>
+				<label class="form-label">Ticket </label><input type="checkbox" id="ticket" value="ticket"><br>
+				<label class="form-label">Otra </label><input type="checkbox" id="otra" value="otra"><br>
 				<div class="invalid-feedback">Ingrese el Email</div>
 			</div>
 
@@ -63,5 +63,66 @@
 			</div>
 		</form>
 	</div>
+	<script type="text/javascript">
+		const form = document.getElementById('form');
+		const datosGuardados=JSON.parse(localStorage.getItem('DataPaso3'));
+		window.addEventListener("DOMContentLoaded", () =>{
+			if(datosGuardados){
+				document.getElementById('condicionIVA').value=datosGuardados.condicionIVA || '';
+				document.getElementById('CUIT').value=datosGuardados.CUIT || '';
+				document.getElementById('razonSocial').value=datosGuardados.razonSocial || '';
+				document.getElementById('domicilioComercial').value=datosGuardados.domicilioComercial || '';
+				document.getElementById('email').value=datosGuardados.email || '';
+				document.getElementById('condicionesDeVenta').value=datosGuardados.condicionesDeVenta || '';
+			}
+		});
+
+		form.addEventListener("submit", (event) =>{
+			event.preventDefault();
+			let validar=true;
+			const AuxCondicionesDeVenta = [];
+			const camposRegulares = ["condicionIVA", "CUIT", "razonSocial", "domicilioComercial", "email"];
+			const camposCondicionesDeVenta = ["contado", "targetaDébito", "targetaCrédito", "cuentaCorriente", "cheque", "ticket", "otra"];
+			camposRegulares.forEach(id=>{
+				const input=document.getElementById(id);
+				if(!input.value||input.value===''){
+					validar=false;
+					input.classList.add('is-invalid');
+				} else{
+					input.classList.remove('is-invalid');
+				}
+			});
+			//validar si hay alguna opcion de condicion de venta seleccionada
+			let condicionSeleccionada=false;
+			camposCondicionesDeVenta.forEach(id=>{
+				const input=document.getElementById(id);
+				if(input.value){
+					AuxCondicionesDeVenta.push(id);
+				}
+			});
+			//si no hay ninguna condicion de venta seleccionada lo tomara al campo como invalido
+			if(!condicionSeleccionada){
+				validar=false;
+				input.classList.add('is-invalid');
+			} else{
+				input.classList.remove('is-invalid');
+			}
+
+			if (!validar) return;
+
+			const data = {
+				condicionIVA: document.getElementById('razonSocial').value,
+				CUIT: document.getElementById('CUIT').value,
+				razonSocial: document.getElementById('razonSocial').value,
+				domicilioComercial: document.getElementById('domicilioComercial').value,
+				email: document.getElementById('email').value,
+				condicionesDeVenta: AuxCondicionesDeVenta;
+
+			};
+			localStorage.setItem("DataPaso3", JSON.stringify(data));
+			window.location.href = 'paso4.html';
+		});
+
+	</script>
 </body>
 </html>
