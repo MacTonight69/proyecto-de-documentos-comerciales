@@ -54,7 +54,6 @@
 				<label class="form-label">Cheque </label><input type="checkbox" id="cheque" value="cheque"><br>
 				<label class="form-label">Ticket </label><input type="checkbox" id="ticket" value="ticket"><br>
 				<label class="form-label">Otra </label><input type="checkbox" id="otra" value="otra"><br>
-				<div class="invalid-feedback">Ingrese el Email</div>
 			</div>
 
 			<div class="d-flex justify-content-between mt-4">
@@ -64,7 +63,8 @@
 		</form>
 	</div>
 	<script type="text/javascript">
-		const form = document.getElementById('form');
+		const form = document.getElementById('form'); //busca el form para usarlo despues
+		const camposCondicionesDeVenta = ["contado", "targetaDébito", "targetaCrédito", "cuentaCorriente", "cheque", "ticket", "otra"];	//crea un array con todas las opciones de condiciones de venta para después poder leer los datos;
 		const datosGuardados=JSON.parse(localStorage.getItem('DataPaso3'));
 		window.addEventListener("DOMContentLoaded", () =>{
 			if(datosGuardados){
@@ -73,7 +73,13 @@
 				document.getElementById('razonSocial').value=datosGuardados.razonSocial || '';
 				document.getElementById('domicilioComercial').value=datosGuardados.domicilioComercial || '';
 				document.getElementById('email').value=datosGuardados.email || '';
-				document.getElementById('condicionesDeVenta').value=datosGuardados.condicionesDeVenta || '';
+				const condicionesDeVenta=datosGuardados.condicionesDeVenta;
+				//carga los datos de los checkbox
+				camposCondicionesDeVenta.forEach((id, index)=>{
+					const input=document.getElementById(id);
+					if(condicionesDeVenta.some((condicion)=> condicion===id)) input.checked=true;
+				});
+
 			}
 		});
 
@@ -85,7 +91,7 @@
 			const camposCondicionesDeVenta = ["contado", "targetaDébito", "targetaCrédito", "cuentaCorriente", "cheque", "ticket", "otra"];
 			camposRegulares.forEach(id=>{
 				const input=document.getElementById(id);
-				if(!input.value||input.value===''){
+				if(!input.value||input.value==='5'){
 					validar=false;
 					input.classList.add('is-invalid');
 				} else{
@@ -96,33 +102,29 @@
 			let condicionSeleccionada=false;
 			camposCondicionesDeVenta.forEach(id=>{
 				const input=document.getElementById(id);
-				if(input.value){
+				if(input.checked){
 					AuxCondicionesDeVenta.push(id);
+					condicionSeleccionada=true;
 				}
 			});
 			//si no hay ninguna condicion de venta seleccionada lo tomara al campo como invalido
 			if(!condicionSeleccionada){
-				validar=false;
-				input.classList.add('is-invalid');
-			} else{
-				input.classList.remove('is-invalid');
+				alert('Seleccione una condicion de venta para poder continuar.');
+				return;
+			} else if (!validar) return;
+			else{
+				const data = {
+					condicionIVA: document.getElementById('condicionIVA').value,
+					CUIT: document.getElementById('CUIT').value,
+					razonSocial: document.getElementById('razonSocial').value,
+					domicilioComercial: document.getElementById('domicilioComercial').value,
+					email: document.getElementById('email').value,
+					condicionesDeVenta: AuxCondicionesDeVenta
+				};
+				localStorage.setItem("DataPaso3", JSON.stringify(data));
+				window.location.href = 'paso4.html';	
 			}
-
-			if (!validar) return;
-
-			const data = {
-				condicionIVA: document.getElementById('razonSocial').value,
-				CUIT: document.getElementById('CUIT').value,
-				razonSocial: document.getElementById('razonSocial').value,
-				domicilioComercial: document.getElementById('domicilioComercial').value,
-				email: document.getElementById('email').value,
-				condicionesDeVenta: AuxCondicionesDeVenta;
-
-			};
-			localStorage.setItem("DataPaso3", JSON.stringify(data));
-			window.location.href = 'paso4.html';
 		});
-
 	</script>
 </body>
 </html>
