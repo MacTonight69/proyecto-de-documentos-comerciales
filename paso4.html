@@ -10,9 +10,12 @@
 	<div class="container">
 		<div class="card shadow p-4">
 			<h4 class="mb-4 text-center">Datos de la Operacion</h4>
-			<form id="form">
+			<form id="form" novalidate>
 				<div class=" table-responsive mb-4">
-					<table class="table table-bordered" style=" border-color: rgba(69, 69, 69, 6.9);">
+					<!--
+						tabla principal de informacion del producto o servicio
+					-->
+					<table class="table table-bordered"  id="tabla">
 						<thead class="table-light">
 							<th class="text-center">Código</th>
 							<th class="text-center">Producto/Servicio</th>
@@ -27,90 +30,14 @@
 							<th class="text-center">Subtotal con IVA</th>
 							<th class="text-danger text-center">Borrar</th>
 						</thead>
-						<tbody class="table-light">
-							<tr>
-								<td><input type="number" class="form-control" required></td>
-								<td><input type="text" class="form-control" required></td>
-								<td><input type="number" class="form-control" required></td>
-								<td>
-									<select name="uDeMedida" class="form-select" required>
-										<option value="">...</option>
-										<option value="kg">Kilogramo</option>
-										<option value="g">gramo</option>
-										<option value="m">Metros</option>
-										<option value="cm">Centimetros</option>
-										<option value="li">Litros</option>
-										<option value="ml">Mililitros</option>
-										<option value="oz">Onzas</option>
-									</select>
-								</td>
-								<td><input type="number"class="form-control" required></td>
-								<td><input type="number" class="form-control" required></td>
-								<td><input type="number" readonly class="form-control"></td>
-								<td><input type="number" readonly class="form-control"></td>
-								<td><input type="number" readonly class="form-control"></td>
-								<td><input type="number" readonly class="form-control"></td>
-								<td><input type="number" readonly class="form-control"></td>
-								<td><button class="btn btn-danger" onclick="eliminarColumna()"> X </button></td>
-							</tr>
-						</tbody>
-						<tbody class="table-light">
-							<tr>
-								<td><input type="number" class="form-control" required></td>
-								<td><input type="text" class="form-control" required></td>
-								<td><input type="number" class="form-control" required></td>
-								<td>
-									<select name="uDeMedida" class="form-select" required>
-										<option value="">...</option>
-										<option value="kg">Kilogramo</option>
-										<option value="g">gramo</option>
-										<option value="m">Metros</option>
-										<option value="cm">Centimetros</option>
-										<option value="li">Litros</option>
-										<option value="ml">Mililitros</option>
-										<option value="oz">Onzas</option>
-									</select>
-								</td>
-								<td><input type="number"class="form-control" required></td>
-								<td><input type="number" class="form-control" required></td>
-								<td><input type="number" readonly class="form-control"></td>
-								<td><input type="number" readonly class="form-control"></td>
-								<td><input type="number" readonly class="form-control"></td>
-								<td><input type="number" readonly class="form-control"></td>
-								<td><input type="number" readonly class="form-control"></td>
-								<td><button class="btn btn-danger" onclick="eliminarColumna()"> X </button></td>
-							</tr>
-						</tbody>
-						<tbody class="table-light">
-							<tr>
-								<td><input type="number" class="form-control" required></td>
-								<td><input type="text" class="form-control" required></td>
-								<td><input type="number" class="form-control" required></td>
-								<td>
-									<select name="uDeMedida" class="form-select" required>
-										<option value="">...</option>
-										<option value="kg">Kilogramo</option>
-										<option value="g">gramo</option>
-										<option value="m">Metros</option>
-										<option value="cm">Centimetros</option>
-										<option value="li">Litros</option>
-										<option value="ml">Mililitros</option>
-										<option value="oz">Onzas</option>
-									</select>
-								</td>
-								<td><input type="number"class="form-control" required></td>
-								<td><input type="number" class="form-control" required></td>
-								<td><input type="number" readonly class="form-control"></td>
-								<td><input type="number" readonly class="form-control"></td>
-								<td><input type="number" readonly class="form-control"></td>
-								<td><input type="number" readonly class="form-control"></td>
-								<td><input type="number" readonly class="form-control"></td>
-								<td><button class="btn btn-danger" onclick="eliminarColumna()"> X </button></td>
-							</tr>
-						</tbody>
+						<tbody id="section1"></tbody>
+						<tbody id="section2"></tbody>
+						<tbody id="section3"></tbody>
 					</table>
 				</div>
-
+				<!--
+					Tabla de Impuestos y retenciones 
+				-->
 				<div class=" table-responsive mb-4">
 					<table class="table table-bordered align-middle" style=" border-color: rgba(69, 69, 69, 6.9); max-height: 600px;">
 						<thead class="table-light">
@@ -125,92 +52,190 @@
 						<tbody class="table-light">
 							<tr>
 								<td>Per./Ret. de Imp. a las Ganancias</td>
-								<td><input class="form-control" type="text" required><div class="invalid-feedback"></div></td>
-								<td><input class="form-control" type="number" required><div class="invalid-feedback"></div></td>
-								<td><input class="form-control" type="number" required><div class="invalid-feedback"></div></td>
-								<td><input class="form-control" type="number" readonly></td>
+								<td><input class="form-control" id="detalleImpGanancias" type="text" required><div class="invalid-feedback">ingrese los detalles</div></td>
+								<td><input class="form-control" id="baseImponibleImpGanacias" type="number" required><div class="invalid-feedback">ingrese la base imponible</div></td>
+								<td><input class="form-control" id="alicuotaImpGanancias" type="number" required><div class="invalid-feedback">ingrese la alicuota</div></td>
+								<td><input class="form-control" id="importeImpGanancias" type="number" readonly></td>
 							</tr>
 							<tr>
 								<td>Per./Ret. de IVA</td>
-								<td><input class="form-control" type="text" required><div class="invalid-feedback"></div></td>
-								<td><input class="form-control" type="number" required><div class="invalid-feedback"></div></td>
-								<td><input class="form-control" type="number" required><div class="invalid-feedback"></div></td>
-								<td><input class="form-control" type="number" readonly></td>
+								<td><input class="form-control" id="detalleIVA" type="text" required><div class="invalid-feedback">ingrese los detalles</div></td>
+								<td><input class="form-control" id="baseImponibleIVA"type="number" required><div class="invalid-feedback">ingrese la base imponible</div></td>
+								<td><input class="form-control" id="alicuotaIVA" type="number" required><div class="invalid-feedback">ingrese la alicuota</div></td>
+								<td><input class="form-control" id="importeIVA" type="number" readonly></td>
 							</tr>
 							<tr>
 								<td>Per./Ret. Ingresos Brutos</td>
-								<td><input class="form-control" type="text" required><div class="invalid-feedback"></div></td>
-								<td><input class="form-control" type="number" required><div c requiredlass="invalid-feedback"></div></td>
-								<td><input class="form-control" type="number" required><div class="invalid-feedback"></div></td>
-								<td><input class="form-control" type="number" readonly></td>
+								<td><input class="form-control" id="detalleIngresosBrutos" type="text" required><div class="invalid-feedback">ingrese los detalles</div></td>
+								<td><input class="form-control" id="baseImponibleIngresosBrutos" type="number" required><div class="invalid-feedback">ingrese la base imponible</div></td>
+								<td><input class="form-control" id="alicuotaIngresosBrutos" type="number" required><div class="invalid-feedback">ingrese la alicuota</div></td>
+								<td><input class="form-control" id="importeIngresosBrutos" type="number" readonly></td>
 							</tr>
 							<tr>
 								<td>Impuestos Internos</td>
-								<td><input class="form-control" type="text"><div class="invalid-feedback"></div></td>
-								<td><input class="form-control" type="number"><div class="invalid-feedback"></div></td>
-								<td><input class="form-control" type="number"><div class="invalid-feedback"></div></td>
-								<td><input class="form-control" type="number" readonly></td>
+								<td><input class="form-control" id="detalleImpInternos" type="text"><div class="invalid-feedback">ingrese los detalles</div></td>
+								<td><input class="form-control" id="baseImponibleImpInternos" type="number"><div class="invalid-feedback">ingrese la base imponible</div></td>
+								<td><input class="form-control" id="alicuotaImpInternos" type="number"><div class="invalid-feedback">ingrese la alicuota</div></td>
+								<td><input class="form-control" id="importeImpInternos" type="number" readonly></td>
 							</tr>
 							<tr>
 								<td>Impuesos Municipales</td>
-								<td><input class="form-control" type="text"required><div class="invalid-feedback"></div></td>
-								<td><input class="form-control" type="number" required><div class="invalid-feedback"></div></td>
-								<td><input class="form-control" type="number" required><div class="invalid-feedback"></div></td>
-								<td><input class="form-control" type="number" readonly></td>
+								<td><input class="form-control" id="detalleImpMunicipales" type="text"required><div class="invalid-feedback">ingrese los detalles</div></td>
+								<td><input class="form-control" id="baseImponibleImpMunicipales" type="number" required><div class="invalid-feedback">ingrese la base imponible</div></td>
+								<td><input class="form-control" id="alicuotaImpMunicipales" type="number" required><div class="invalid-feedback">ingrese la alicuota</div></td>
+								<td><input class="form-control" id="importeImpMunicipales" type="number" readonly></td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-
+				<!-- tabla de importes e IVA-->
 				<div class="row">
 					<div class="col-md-4">
 						<label>Importe Otros Tributos</label>
-						<input type="number" class="form-control">
+						<input type="number" id="importeOtrosTributos" class="form-control">
+						<div class="invalid-feedback">ingrese el importe a otros tributos</div>
 					</div>
 					<div class="col-md-4">
 						<label>Importe Neto No Gravado</label>
-						<input class="form-control" type="number" readonly>
+						<input class="form-control" id="importeNetoNoGravado" type="number" readonly>
 					</div>
 					<div class="col-md-4"> 
 						<label>Importe Exento</label>
-						<input class="form-control" type="number" readonly>
+						<input class="form-control" id="importeExcento" type="number" readonly>
 					</div>
 					<div class="col-md-4">	
 						<label>Importe Neto Gravado</label>
-						<input class="form-control" type="number" readonly>
+						<input class="form-control" id="importeNetoGravado" type="number" readonly>
 					</div>
 					<div class="col-md-4">
 						<label>IVA 27%</label>
-						<input class="form-control" type="number" readonly>
+						<input class="form-control" id="IVA27" type="number" readonly>
 					</div>
 					<div class="col-md-4">
 						<label>IVA 21%</label>
-						<input class="form-control" type="number" readonly>
+						<input class="form-control" id="IVA21" type="number" readonly>
 					</div>
 					<div class="col-md-4">
 						<label>IVA 10.5%</label>
-						<input class="form-control" type="number" readonly>
+						<input class="form-control" id="IVA10_5" type="number" readonly>
 					</div>
 					<div class="col-md-4">
 						<label>IVA 5%</label>
-						<input class="form-control" type="number" readonly>
+						<input class="form-control" id="IVA5" type="number" readonly>
 					</div>
 					<div class="col-md-4">
 						<label>IVA 2.5%</label>
-						<input class="form-control" type="number" readonly>
+						<input class="form-control" id="IVA2_5" type="number" readonly>
 					</div>
 					<div class="col-md-4">
 						<label>IVA 0%</label>
-						<input class="form-control" type="number" readonly>
+						<input class="form-control" id="IVA0" type="number" readonly>
 					</div>
 				</div>
 
 				<div class="d-flex justify-content-between mt-4">
-					<a class="btn btn-secondary" href="paso3.html">Anterior</a>
+					<button class="btn btn-secondary" onclick="window.location.href='paso3.html'">Anterior</a>
 					<button class="btn btn-primary" type="submit">Finalizar</button>
 				</div>
 			</form>
 		</div>
-	</div>	
+	</div>
+	<script type="text/javascript">
+		const form = document.getElementById('form');
+		const datosGuardados=JSON.parse(localStorage.getItem('DataPaso4'));
+		const camposTabla = ['codigo', 'ProductoServicio', 'cantidad', 'uDeMedida', 'precioUnitario', 'bonificacion', 'importeBonificacion', 'subtotal', 'alicuotaIVA', 'importe', 'subtotalConIVA'];
+		function eliminarSeccion(numSeccion){	//funcion para deshanilitar una fila de inputs
+			//pregunta si ya hay un campo inhabilitado para confirmar su estado
+			if(!document.getElementById('codigo'+numSeccion.toString()).disabled){
+				//inhabilita campo por campo la fila completa
+				camposTabla.forEach(campo => {
+					const input = document.getElementById(campo+numSeccion.toString());
+					input.value = "";
+					input.disabled = true;
+					input.classList.remove('is-invalid');	//si inhabilita el campo elimina el mensaje de error al estar este vacio;
+				});
+			} else camposTabla.forEach(campo => {document.getElementById(campo+numSeccion.toString()).disabled = false;});
+		}
+		window.addEventListener('DOMContentLoaded', () =>{
+			//genera las tres filas de inputs de la primera tabla
+			for(let i=1; i<=3; i++){
+				const seccionTabla=document.getElementById(`section${i}`);
+				const filaInputs= document.createElement("tr");
+				let stringFilaInputs = `
+					<td><input type="number" id="codigo${i}" class="form-control" required><div class="invalid-feedback">Ingrese el código</div></td>
+					<td><select id="ProductoServicio${i}" class="form-select">
+						<option value="">...</option>
+						<option value="Producto">Producto</option>
+						<option value="Servicio">Servicio</option>
+					</select>
+					<div class="invalid-feedback">Seleccione una opcion</div></td>
+					<td><input type="number" id="cantidad${i}" class="form-control" required><div class="invalid-feedback">ingrese la cantidad</div></td>
+					<td>
+						<select id="uDeMedida${i}" class="form-select" required>
+							<option value="">...</option>
+							<option value="kg">Kilogramo</option>
+							<option value="g">gramo</option>
+							<option value="m">Metros</option>
+							<option value="cm">Centimetros</option>
+							<option value="li">Litros</option>
+							<option value="ml">Mililitros</option>
+							<option value="oz">Onzas</option>
+						</select>
+						<div class="invalid-feedback">Seleccione una unidad de medida</div>
+					</td>
+					<td><input type="number" id="precioUnitario${i}" class="form-control" required><div class="invalid-feedback">ingrese el precio por unidad</div></td>
+					<td><input type="number" id="bonificacion${i}" class="form-control" required><div class="invalid-feedback">ingrese el porcentaje de bonificacion</div></td>
+					<td><input type="number" id="importeBonificacion${i}" readonly class="form-control"></td>
+					<td><input type="number" id="subtotal${i}" readonly class="form-control"></td>
+					<td><input type="number" id="alicuotaIVA${i}" readonly class="form-control"></td>
+					<td><input type="number" id="importe${i}" readonly class="form-control"></td>
+					<td><input type="number" id="subtotalConIVA${i}" readonly class="form-control"></td>
+			`;
+				if(i>1){
+					stringFilaInputs+=`<td><button class="btn btn-danger" type="button" onclick="eliminarSeccion(${i})"> X </button></td>`;
+				} else{
+					stringFilaInputs+=`<td></td>`;
+				}
+				stringFilaInputs+=`</tr>`;
+				filaInputs.innerHTML = stringFilaInputs;
+				seccionTabla.appendChild(filaInputs);
+
+				/*const codigo = document.getElementById(`codigo${i}`);
+				const ProductoServicio = document.getElementById(`ProductoServicio${i}`);
+				const cantidad = document.getElementById(`cantidad${i}`);
+				const uDeMedida = document.getElementById(`uDeMedida${i}`);
+				const precioUnitario = document.getElementById(`precioUnitario${i}`);
+				const bonificacion = document.getElementById(`bonificacion${i}`);
+				const importeBonificacion = document.getElementById(`importeBonificacion${i}`);
+				const subtotal = document.getElementById(`subtotal${i}`);
+				const alicuotaIVA = document.getElementById(`alicuotaIVA${i}`);
+				const importe = document.getElementById(`importe${i}`);
+				const subtotalConIVA = document.getElementById(`subtotalConIVA${i}`);*/
+			}
+		});
+		form.addEventListener("submit",(e)=>{
+			e.preventDefault();
+			let validar=true;
+			const otrosCampos = ['detalleImpGanancias', 'baseImponibleImpGanacias', 'alicuotaImpGanancias', 'detalleIVA', 'baseImponibleIVA', 'alicuotaIVA', 'detalleIngresosBrutos', 'baseImponibleIngresosBrutos', 'alicuotaIngresosBrutos', 'detalleImpInternos', 'baseImponibleImpInternos', 'alicuotaImpInternos', 'detalleImpMunicipales', 'baseImponibleImpMunicipales', 'alicuotaImpMunicipales', 'importeOtrosTributos'];
+			for(let i =1; i<=3;i++){	//validar los campos de la tabla principal
+				camposTabla.forEach((valor, indice) =>{
+					if(indice>5) return;
+					const input=document.getElementById(valor+i.toString());
+					if((!input || input.value === '') && !input.disabled) {
+						input.classList.add('is-invalid');
+						validar=false;
+					} else input.classList.remove('is-invalid');
+				});
+			}
+			otrosCampos.forEach(campo =>{
+				const input=document.getElementById(campo);
+				if(!input || input.value === '') {
+					input.classList.add('is-invalid');
+					validar=false;
+				} else input.classList.remove('is-invalid');
+			});
+			if(!validar) return;
+		});
+	</script>
 </body>
 </html>
