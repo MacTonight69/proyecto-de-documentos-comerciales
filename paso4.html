@@ -52,23 +52,23 @@
 						<tbody class="table-light">
 							<tr>
 								<td>Per./Ret. de Imp. a las Ganancias</td>
-								<td><input class="form-control" id="detalleImpGanancias" type="text" required><div class="invalid-feedback">ingrese los detalles</div></td>
-								<td><input class="form-control" id="baseImponibleImpGanacias" type="number" required><div class="invalid-feedback">ingrese la base imponible</div></td>
-								<td><input class="form-control" id="alicuotaImpGanancias" type="number" required><div class="invalid-feedback">ingrese la alicuota</div></td>
+								<td><input class="form-control" id="detalleImpGanancias" type="text"><div class="invalid-feedback">ingrese los detalles</div></td>
+								<td><input class="form-control" id="baseImponibleImpGanancias" type="number"><div class="invalid-feedback">ingrese la base imponible</div></td>
+								<td><input class="form-control" id="alicuotaImpGanancias" type="number"><div class="invalid-feedback">ingrese la alicuota</div></td>
 								<td><input class="form-control" id="importeImpGanancias" type="number" readonly></td>
 							</tr>
 							<tr>
 								<td>Per./Ret. de IVA</td>
-								<td><input class="form-control" id="detalleIVA" type="text" required><div class="invalid-feedback">ingrese los detalles</div></td>
-								<td><input class="form-control" id="baseImponibleIVA"type="number" required><div class="invalid-feedback">ingrese la base imponible</div></td>
-								<td><input class="form-control" id="alicuotaIVA" type="number" required><div class="invalid-feedback">ingrese la alicuota</div></td>
+								<td><input class="form-control" id="detalleIVA" type="text" ><div class="invalid-feedback">ingrese los detalles</div></td>
+								<td><input class="form-control" id="baseImponibleIVA"type="number" ><div class="invalid-feedback">ingrese la base imponible</div></td>
+								<td><input class="form-control" id="alicuotaIVA" type="number" ><div class="invalid-feedback">ingrese la alicuota</div></td>
 								<td><input class="form-control" id="importeIVA" type="number" readonly></td>
 							</tr>
 							<tr>
 								<td>Per./Ret. Ingresos Brutos</td>
-								<td><input class="form-control" id="detalleIngresosBrutos" type="text" required><div class="invalid-feedback">ingrese los detalles</div></td>
-								<td><input class="form-control" id="baseImponibleIngresosBrutos" type="number" required><div class="invalid-feedback">ingrese la base imponible</div></td>
-								<td><input class="form-control" id="alicuotaIngresosBrutos" type="number" required><div class="invalid-feedback">ingrese la alicuota</div></td>
+								<td><input class="form-control" id="detalleIngresosBrutos" type="text"><div class="invalid-feedback">ingrese los detalles</div></td>
+								<td><input class="form-control" id="baseImponibleIngresosBrutos" type="number"><div class="invalid-feedback">ingrese la base imponible</div></td>
+								<td><input class="form-control" id="alicuotaIngresosBrutos" type="number"><div class="invalid-feedback">ingrese la alicuota</div></td>
 								<td><input class="form-control" id="importeIngresosBrutos" type="number" readonly></td>
 							</tr>
 							<tr>
@@ -80,9 +80,9 @@
 							</tr>
 							<tr>
 								<td>Impuesos Municipales</td>
-								<td><input class="form-control" id="detalleImpMunicipales" type="text"required><div class="invalid-feedback">ingrese los detalles</div></td>
-								<td><input class="form-control" id="baseImponibleImpMunicipales" type="number" required><div class="invalid-feedback">ingrese la base imponible</div></td>
-								<td><input class="form-control" id="alicuotaImpMunicipales" type="number" required><div class="invalid-feedback">ingrese la alicuota</div></td>
+								<td><input class="form-control" id="detalleImpMunicipales" type="text"><div class="invalid-feedback">ingrese los detalles</div></td>
+								<td><input class="form-control" id="baseImponibleImpMunicipales" type="number" ><div class="invalid-feedback">ingrese la base imponible</div></td>
+								<td><input class="form-control" id="alicuotaImpMunicipales" type="number" ><div class="invalid-feedback">ingrese la alicuota</div></td>
 								<td><input class="form-control" id="importeImpMunicipales" type="number" readonly></td>
 							</tr>
 						</tbody>
@@ -143,7 +143,7 @@
 	<script type="text/javascript">
 		const form = document.getElementById('form');
 		const datosGuardados=JSON.parse(localStorage.getItem('DataPaso4'));
-		const camposTabla = ['codigo', 'ProductoServicio', 'cantidad', 'uDeMedida', 'precioUnitario', 'bonificacion', 'importeBonificacion', 'subtotal', 'alicuotaIVA', 'importe', 'subtotalConIVA'];
+		const camposTabla = ['codigo', 'ProductoServicio', 'cantidad', 'uDeMedida', 'precioUnitario', 'bonificacion', 'importeBonificacion', 'subtotal', 'alicuotaIVA', 'importe', 'subtotalConIVA'],  otrosCampos = ['detalleImpGanancias', 'baseImponibleImpGanancias', 'alicuotaImpGanancias', 'detalleIVA', 'baseImponibleIVA', 'alicuotaIVA', 'detalleIngresosBrutos', 'baseImponibleIngresosBrutos', 'alicuotaIngresosBrutos', 'detalleImpInternos', 'baseImponibleImpInternos', 'alicuotaImpInternos', 'detalleImpMunicipales', 'baseImponibleImpMunicipales', 'alicuotaImpMunicipales', 'importeOtrosTributos'];
 		function eliminarSeccion(numSeccion){	//funcion para deshanilitar una fila de inputs
 			//pregunta si ya hay un campo inhabilitado para confirmar su estado
 			if(!document.getElementById('codigo'+numSeccion.toString()).disabled){
@@ -200,6 +200,8 @@
 				filaInputs.innerHTML = stringFilaInputs;
 				seccionTabla.appendChild(filaInputs);
 
+				// cargar los datos guardados
+
 				/*const codigo = document.getElementById(`codigo${i}`);
 				const ProductoServicio = document.getElementById(`ProductoServicio${i}`);
 				const cantidad = document.getElementById(`cantidad${i}`);
@@ -212,16 +214,17 @@
 				const importe = document.getElementById(`importe${i}`);
 				const subtotalConIVA = document.getElementById(`subtotalConIVA${i}`);*/
 			}
+			for(let i=1; i<=3; i++)camposTabla.forEach(valor=>{document.getElementById(valor+ i.toString()).value = datosGuardados.table[i-1][valor] || '';});
+			otrosCampos.forEach(valor=>{document.getElementById(valor).value = datosGuardados[valor] || '';});
 		});
 		form.addEventListener("submit",(e)=>{
 			e.preventDefault();
 			let validar=true;
-			const otrosCampos = ['detalleImpGanancias', 'baseImponibleImpGanacias', 'alicuotaImpGanancias', 'detalleIVA', 'baseImponibleIVA', 'alicuotaIVA', 'detalleIngresosBrutos', 'baseImponibleIngresosBrutos', 'alicuotaIngresosBrutos', 'detalleImpInternos', 'baseImponibleImpInternos', 'alicuotaImpInternos', 'detalleImpMunicipales', 'baseImponibleImpMunicipales', 'alicuotaImpMunicipales', 'importeOtrosTributos'];
 			for(let i =1; i<=3;i++){	//validar los campos de la tabla principal
 				camposTabla.forEach((valor, indice) =>{
 					if(indice>5) return;
 					const input=document.getElementById(valor+i.toString());
-					if((!input || input.value === '') && !input.disabled) {
+					if(input.value === '' && (!input.disabled&&input.required)) {
 						input.classList.add('is-invalid');
 						validar=false;
 					} else input.classList.remove('is-invalid');
@@ -229,12 +232,34 @@
 			}
 			otrosCampos.forEach(campo =>{
 				const input=document.getElementById(campo);
-				if(!input || input.value === '') {
+				if(input.value === '' && input.required) {
 					input.classList.add('is-invalid');
 					validar=false;
 				} else input.classList.remove('is-invalid');
 			});
 			if(!validar) return;
+
+			const table = [];
+			for(let i=1;i<=3;i++){	//el array guarda los datos de 3 objetos
+				table.push({
+					codigo: document.getElementById(`codigo${i}`).value||'',
+					ProductoServicio: document.getElementById(`ProductoServicio${i}`).value||'',
+					cantidad: document.getElementById(`cantidad${i}`).value||'',
+					uDeMedida: document.getElementById(`uDeMedida${i}`).value||'',
+					precioUnitario: document.getElementById(`precioUnitario${i}`).value||'',
+					bonificacion: document.getElementById(`bonificacion${i}`).value||'',
+					importeBonificacion: document.getElementById(`importeBonificacion${i}`).value||'',
+					subtotal: document.getElementById(`subtotal${i}`).value||'',
+					alicuotaIVA: document.getElementById(`alicuotaIVA${i}`).value||'',
+					importe: document.getElementById(`importe${i}`).value||'',
+					subtotalConIVA: document.getElementById(`subtotalConIVA${i}`).value||''
+				});
+			}
+			const data = {table: table};
+			for(let i=0;i<otrosCampos.length;i++) data[otrosCampos[i]] = document.getElementById(otrosCampos[i]).value||'';
+
+			localStorage.setItem('DataPaso4', JSON.stringify(data));
+			window.location.href="final.html";
 		});
 	</script>
 </body>
