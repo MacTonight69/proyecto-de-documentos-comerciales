@@ -53,36 +53,36 @@
 							<tr>
 								<td>Per./Ret. de Imp. a las Ganancias</td>
 								<td><input class="form-control" id="detalleImpGanancias" type="text"><div class="invalid-feedback">ingrese los detalles</div></td>
-								<td><input class="form-control" id="baseImponibleImpGanancias" type="number"><div class="invalid-feedback">ingrese la base imponible</div></td>
-								<td><input class="form-control" id="alicuotaImpGanancias" type="number"><div class="invalid-feedback">ingrese la alicuota</div></td>
+								<td><input class="form-control" id="baseImponibleImpGanancias" type="number" oninput="actualizarImportes('ImpGanancias')" required><div class="invalid-feedback">ingrese la base imponible</div></td>
+								<td><input class="form-control" id="alicuotaImpGanancias" type="number" oninput="actualizarImportes('ImpGanancias')" required><div class="invalid-feedback">ingrese la alicuota</div></td>
 								<td><input class="form-control" id="importeImpGanancias" type="number" readonly></td>
 							</tr>
 							<tr>
 								<td>Per./Ret. de IVA</td>
 								<td><input class="form-control" id="detalleIVA" type="text" ><div class="invalid-feedback">ingrese los detalles</div></td>
-								<td><input class="form-control" id="baseImponibleIVA"type="number" ><div class="invalid-feedback">ingrese la base imponible</div></td>
-								<td><input class="form-control" id="alicuotaIVA" type="number" ><div class="invalid-feedback">ingrese la alicuota</div></td>
+								<td><input class="form-control" id="baseImponibleIVA" type="number" oninput="actualizarImportes('IVA')" required><div class="invalid-feedback">ingrese la base imponible</div></td>
+								<td><input class="form-control" id="alicuotaIVA" type="number" oninput="actualizarImportes('IVA')" required><div class="invalid-feedback">ingrese la alicuota</div></td>
 								<td><input class="form-control" id="importeIVA" type="number" readonly></td>
 							</tr>
 							<tr>
 								<td>Per./Ret. Ingresos Brutos</td>
 								<td><input class="form-control" id="detalleIngresosBrutos" type="text"><div class="invalid-feedback">ingrese los detalles</div></td>
-								<td><input class="form-control" id="baseImponibleIngresosBrutos" type="number"><div class="invalid-feedback">ingrese la base imponible</div></td>
-								<td><input class="form-control" id="alicuotaIngresosBrutos" type="number"><div class="invalid-feedback">ingrese la alicuota</div></td>
+								<td><input class="form-control" id="baseImponibleIngresosBrutos" type="number" oninput="actualizarImportes('IngresosBrutos')" required><div class="invalid-feedback">ingrese la base imponible</div></td>
+								<td><input class="form-control" id="alicuotaIngresosBrutos" type="number" oninput="actualizarImportes('IngresosBrutos')" required><div class="invalid-feedback">ingrese la alicuota</div></td>
 								<td><input class="form-control" id="importeIngresosBrutos" type="number" readonly></td>
 							</tr>
 							<tr>
 								<td>Impuestos Internos</td>
 								<td><input class="form-control" id="detalleImpInternos" type="text"><div class="invalid-feedback">ingrese los detalles</div></td>
-								<td><input class="form-control" id="baseImponibleImpInternos" type="number"><div class="invalid-feedback">ingrese la base imponible</div></td>
-								<td><input class="form-control" id="alicuotaImpInternos" type="number"><div class="invalid-feedback">ingrese la alicuota</div></td>
+								<td><input class="form-control" id="baseImponibleImpInternos" type="number" oninput="actualizarImportes('ImpInternos')" required><div class="invalid-feedback">ingrese la base imponible</div></td>
+								<td><input class="form-control" id="alicuotaImpInternos" type="number" oninput="actualizarImportes('ImpInternos')" required><div class="invalid-feedback">ingrese la alicuota</div></td>
 								<td><input class="form-control" id="importeImpInternos" type="number" readonly></td>
 							</tr>
 							<tr>
 								<td>Impuesos Municipales</td>
 								<td><input class="form-control" id="detalleImpMunicipales" type="text"><div class="invalid-feedback">ingrese los detalles</div></td>
-								<td><input class="form-control" id="baseImponibleImpMunicipales" type="number" ><div class="invalid-feedback">ingrese la base imponible</div></td>
-								<td><input class="form-control" id="alicuotaImpMunicipales" type="number" ><div class="invalid-feedback">ingrese la alicuota</div></td>
+								<td><input class="form-control" id="baseImponibleImpMunicipales" type="number" oninput="actualizarImportes('ImpMunicipales')" required><div class="invalid-feedback">ingrese la base imponible</div></td>
+								<td><input class="form-control" id="alicuotaImpMunicipales" type="number" oninput="actualizarImportes('ImpMunicipales')" required><div class="invalid-feedback">ingrese la alicuota</div></td>
 								<td><input class="form-control" id="importeImpMunicipales" type="number" readonly></td>
 							</tr>
 						</tbody>
@@ -92,9 +92,8 @@
 				<div class="row">
 					<div class="col-md-4">
 						<label>Importe Otros Tributos</label>
-						<input type="number" id="importeOtrosTributos" class="form-control">
-						<div class="invalid-feedback">ingrese el importe a otros tributos</div>
-					</div>
+						<input type="number" id="importeOtrosTributos" class="form-control" readonly>
+						</div>
 					<div class="col-md-4">
 						<label>Importe Neto No Gravado</label>
 						<input class="form-control" id="importeNetoNoGravado" type="number" readonly>
@@ -143,9 +142,12 @@
 	<script type="text/javascript">
 		const form = document.getElementById('form');
 		const datosGuardados=JSON.parse(localStorage.getItem('DataPaso4'));
-		const camposTabla = ['codigo', 'ProductoServicio', 'cantidad', 'uDeMedida', 'precioUnitario', 'bonificacion', 'importeBonificacion', 'subtotal', 'alicuotaIVA', 'importe', 'subtotalConIVA'],  otrosCampos = ['detalleImpGanancias', 'baseImponibleImpGanancias', 'alicuotaImpGanancias', 'detalleIVA', 'baseImponibleIVA', 'alicuotaIVA', 'detalleIngresosBrutos', 'baseImponibleIngresosBrutos', 'alicuotaIngresosBrutos', 'detalleImpInternos', 'baseImponibleImpInternos', 'alicuotaImpInternos', 'detalleImpMunicipales', 'baseImponibleImpMunicipales', 'alicuotaImpMunicipales', 'importeOtrosTributos'];
+		const camposTabla = ['codigo', 'ProductoServicio', 'cantidad', 'uDeMedida', 'precioUnitario', 'bonificacion', 'importeBonificacion', 'subtotal', 'alicuotaIVA', 'importe', 'subtotalConIVA'];
+		const  otrosCampos = ['detalleImpGanancias', 'baseImponibleImpGanancias', 'alicuotaImpGanancias', 'importeImpGanancias', 'detalleIVA', 'baseImponibleIVA', 'alicuotaIVA', 'importeIVA', 'detalleIngresosBrutos', 'baseImponibleIngresosBrutos', 'alicuotaIngresosBrutos', 'importeIngresosBrutos', 'detalleImpInternos', 'baseImponibleImpInternos', 'alicuotaImpInternos', 'importeImpInternos', 'detalleImpMunicipales', 'baseImponibleImpMunicipales', 'alicuotaImpMunicipales', 'importeImpMunicipales', 'importeOtrosTributos'];
+		
 		function eliminarSeccion(numSeccion){	//funcion para deshanilitar una fila de inputs
 			//pregunta si ya hay un campo inhabilitado para confirmar su estado
+			const boton = document.getElementById('button'+numSeccion.toString());
 			if(!document.getElementById('codigo'+numSeccion.toString()).disabled){
 				//inhabilita campo por campo la fila completa
 				camposTabla.forEach(campo => {
@@ -153,9 +155,28 @@
 					input.value = "";
 					input.disabled = true;
 					input.classList.remove('is-invalid');	//si inhabilita el campo elimina el mensaje de error al estar este vacio;
+					boton.classList.remove('btn-danger');	//cambia la forma del boton dependiendo de si esta desactivado o no
+					boton.innerHTML= 'O';
+					boton.classList.add('btn-light');
 				});
-			} else camposTabla.forEach(campo => {document.getElementById(campo+numSeccion.toString()).disabled = false;});
+			} else camposTabla.forEach(campo => {	//activa los campos
+				document.getElementById(campo+numSeccion.toString()).disabled = false;
+				boton.classList.remove('btn-light');
+				boton.innerHTML = 'X';
+				boton.classList.add('btn-danger');
+			});
 		}
+
+		function actualizarImportes(tipoImporte){
+			const baseImponible=Number(document.getElementById('baseImponible' + tipoImporte).value), alicuota = Number(document.getElementById('alicuota' + tipoImporte).value), importe = document.getElementById('importe' + tipoImporte);
+			importe.value = baseImponible + (baseImponible*alicuota)/100;
+			importe.dispatchEvent(new Event("change"));
+		}
+		['importeImpGanancias', 'importeIVA', 'importeIngresosBrutos', 'importeImpInternos', 'importeImpMunicipales'].forEach(id=>{
+			document.getElementById(id).addEventListener("change", () =>{
+				document.getElementById('importeOtrosTributos').value = Number(document.getElementById('importeImpGanancias').value) + Number(document.getElementById('importeIVA').value) + Number(document.getElementById('importeIngresosBrutos').value) + Number(document.getElementById('importeImpInternos').value) + Number(document.getElementById('importeImpMunicipales').value);
+			});
+		})
 		window.addEventListener('DOMContentLoaded', () =>{
 			//genera las tres filas de inputs de la primera tabla
 			for(let i=1; i<=3; i++){
@@ -192,7 +213,7 @@
 					<td><input type="number" id="subtotalConIVA${i}" readonly class="form-control"></td>
 			`;
 				if(i>1){
-					stringFilaInputs+=`<td><button class="btn btn-danger" type="button" onclick="eliminarSeccion(${i})"> X </button></td>`;
+					stringFilaInputs+=`<td><button class="btn btn-danger" type="button" id="button${i}" onclick="eliminarSeccion(${i})"> X </button></td>`;
 				} else{
 					stringFilaInputs+=`<td></td>`;
 				}
@@ -217,6 +238,10 @@
 			for(let i=1; i<=3; i++)camposTabla.forEach(valor=>{document.getElementById(valor+ i.toString()).value = datosGuardados.table[i-1][valor] || '';});
 			otrosCampos.forEach(valor=>{document.getElementById(valor).value = datosGuardados[valor] || '';});
 		});
+
+		//actualizar los inputs de solo lectura a medida que el usuario ingresa datos
+
+
 		form.addEventListener("submit",(e)=>{
 			e.preventDefault();
 			let validar=true;
@@ -263,4 +288,4 @@
 		});
 	</script>
 </body>
-</html>
+</html>	
