@@ -167,16 +167,30 @@
 			});
 		}
 
+		function actualizarDatosTabla(numFila) {
+			const precioUnitario = Number(document.getElementById(`precioUnitario${numFila}`).value);
+			const cantidad = Number(document.getElementById(`cantidad${numFila}`).value);
+			const alicuotaIVA = Number(document.getElementById(`alicuotaIVA${numFila}`).value);
+			const bonificacion= Number(document.getElementById(`bonificacion${numFila}`).value)
+			const importeBonificacion = precioUnitario*cantidad*bonificacion/100;
+			const subtotal = precioUnitario*cantidad - importeBonificacion;
+			const importe = subtotal*alicuotaIVA/100;
+			const subtotalConIVA = subtotal + importe;
+
+			document.getElementById(`importeBonificacion${numFila}`).value =importeBonificacion;
+			document.getElementById(`subtotal${numFila}`).value = subtotal;
+			document.getElementById(`importe${numFila}`).value = importe;
+			document.getElementById(`subtotalConIVA${numFila}`).value = subtotalConIVA;
+		}
+
 		function actualizarImportes(tipoImporte){
 			const baseImponible=Number(document.getElementById('baseImponible' + tipoImporte).value), alicuota = Number(document.getElementById('alicuota' + tipoImporte).value), importe = document.getElementById('importe' + tipoImporte);
 			importe.value = baseImponible + (baseImponible*alicuota)/100;
-			importe.dispatchEvent(new Event("change"));
+
+			document.getElementById('importeOtrosTributos').value = Number(document.getElementById('importeImpGanancias').value) + Number(document.getElementById('importeIVA').value) + Number(document.getElementById('importeIngresosBrutos').value) + Number(document.getElementById('importeImpInternos').value) + Number(document.getElementById('importeImpMunicipales').value);
 		}
-		['importeImpGanancias', 'importeIVA', 'importeIngresosBrutos', 'importeImpInternos', 'importeImpMunicipales'].forEach(id=>{
-			document.getElementById(id).addEventListener("change", () =>{
-				document.getElementById('importeOtrosTributos').value = Number(document.getElementById('importeImpGanancias').value) + Number(document.getElementById('importeIVA').value) + Number(document.getElementById('importeIngresosBrutos').value) + Number(document.getElementById('importeImpInternos').value) + Number(document.getElementById('importeImpMunicipales').value);
-			});
-		})
+
+
 		window.addEventListener('DOMContentLoaded', () =>{
 			//genera las tres filas de inputs de la primera tabla
 			for(let i=1; i<=3; i++){
@@ -190,7 +204,7 @@
 						<option value="Servicio">Servicio</option>
 					</select>
 					<div class="invalid-feedback">Seleccione una opcion</div></td>
-					<td><input type="number" id="cantidad${i}" class="form-control" required><div class="invalid-feedback">ingrese la cantidad</div></td>
+					<td><input type="number" id="cantidad${i}" oninput="actualizarDatosTabla(${i})" class="form-control" required><div class="invalid-feedback">ingrese la cantidad</div></td>
 					<td>
 						<select id="uDeMedida${i}" class="form-select" required>
 							<option value="">...</option>
@@ -204,11 +218,18 @@
 						</select>
 						<div class="invalid-feedback">Seleccione una unidad de medida</div>
 					</td>
-					<td><input type="number" id="precioUnitario${i}" class="form-control" required><div class="invalid-feedback">ingrese el precio por unidad</div></td>
-					<td><input type="number" id="bonificacion${i}" class="form-control" required><div class="invalid-feedback">ingrese el porcentaje de bonificacion</div></td>
+					<td><input type="number" id="precioUnitario${i}" oninput="actualizarDatosTabla(${i})" class="form-control" required><div class="invalid-feedback">ingrese el precio por unidad</div></td>
+					<td><input type="number" id="bonificacion${i}" oninput="actualizarDatosTabla(${i})" class="form-control" required><div class="invalid-feedback">ingrese el porcentaje de bonificacion</div></td>
 					<td><input type="number" id="importeBonificacion${i}" readonly class="form-control"></td>
 					<td><input type="number" id="subtotal${i}" readonly class="form-control"></td>
-					<td><input type="number" id="alicuotaIVA${i}" readonly class="form-control"></td>
+					<td><select id="alicuotaIVA${i}" oninput="actualizarDatosTabla(${i})" class="form-select" required>
+							<option value="0">Exento</option>
+							<option value="27">27</option>
+							<option value="21">21</option>
+							<option value="10.5">10,5</option>
+							<option value="5">5</option>
+							<option value="2.5">2,5</option>
+						</select></td>
 					<td><input type="number" id="importe${i}" readonly class="form-control"></td>
 					<td><input type="number" id="subtotalConIVA${i}" readonly class="form-control"></td>
 			`;
