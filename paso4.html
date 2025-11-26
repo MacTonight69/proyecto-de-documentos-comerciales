@@ -151,8 +151,9 @@
 		const form = document.getElementById('form');
 		const datosGuardados=JSON.parse(localStorage.getItem('DataPaso4'));
 		const camposTabla = ['codigo', 'ProductoServicio', 'cantidad', 'uDeMedida', 'precioUnitario', 'bonificacion', 'importeBonificacion', 'subtotal', 'alicuotaIVA', 'importe', 'subtotalConIVA'];
-		const  otrosCampos = ['detalleImpGanancias', 'baseImponibleImpGanancias', 'alicuotaImpGanancias', 'importeImpGanancias', 'detalleIVA', 'baseImponibleIVA', 'alicuotaIVA', 'importeIVA', 'detalleIngresosBrutos', 'baseImponibleIngresosBrutos', 'alicuotaIngresosBrutos', 'importeIngresosBrutos', 'detalleImpInternos', 'baseImponibleImpInternos', 'alicuotaImpInternos', 'importeImpInternos', 'detalleImpMunicipales', 'baseImponibleImpMunicipales', 'alicuotaImpMunicipales', 'importeImpMunicipales', 'importeOtrosTributos'];
-		
+		const  otrosCampos = ['detalleImpGanancias', 'baseImponibleImpGanancias', 'alicuotaImpGanancias', 'importeImpGanancias', 'detalleIVA', 'baseImponibleIVA', 'alicuotaIVA', 'importeIVA', 'detalleIngresosBrutos', 'baseImponibleIngresosBrutos', 'alicuotaIngresosBrutos', 'importeIngresosBrutos', 'detalleImpInternos', 'baseImponibleImpInternos', 'alicuotaImpInternos', 'importeImpInternos', 'detalleImpMunicipales', 'baseImponibleImpMunicipales', 'alicuotaImpMunicipales', 'importeImpMunicipales'];
+		const totales = ['importeOtrosTributos', 'importeNetoNoGravado', 'importeNetoGravado', 'importeExcento', 'IVA27', 'IVA21', 'IVA10_5', 'IVA5', 'IVA2_5', 'IVA0', 'importeTotal'];
+
 		function eliminarSeccion(numSeccion){	//funcion para deshanilitar una fila de inputs
 			//pregunta si ya hay un campo inhabilitado para confirmar su estado
 			const boton = document.getElementById('button'+numSeccion.toString());
@@ -278,8 +279,17 @@
 				filaInputs.innerHTML = stringFilaInputs;
 				seccionTabla.appendChild(filaInputs);
 			}
-			for(let i=1; i<=3; i++)camposTabla.forEach(valor=>{document.getElementById(valor+ i.toString()).value = datosGuardados.table[i-1][valor] || '';});
+			for(let i=1; i<=3; i++){
+				if(!datosGuardados.table[i-1]){
+					break;
+				} else{
+					camposTabla.forEach(valor=>{document.getElementById(valor+ i.toString()).value = datosGuardados.table[i-1][valor] || '';});
+				}
+				
+			}
 			otrosCampos.forEach(valor=>{document.getElementById(valor).value = datosGuardados[valor] || '';});
+			totales.forEach(valor=>{document.getElementById(valor).value = datosGuardados[valor] || '';});
+
 		});
 
 		//actualizar los inputs de solo lectura a medida que el usuario ingresa datos
@@ -308,22 +318,25 @@
 
 			const table = [];
 			for(let i=1;i<=3;i++){	//el array guarda los datos de 3 objetos
-				table.push({
-					codigo: document.getElementById(`codigo${i}`).value||'',
-					ProductoServicio: document.getElementById(`ProductoServicio${i}`).value||'',
-					cantidad: document.getElementById(`cantidad${i}`).value||'',
-					uDeMedida: document.getElementById(`uDeMedida${i}`).value||'',
-					precioUnitario: document.getElementById(`precioUnitario${i}`).value||'',
-					bonificacion: document.getElementById(`bonificacion${i}`).value||'',
-					importeBonificacion: document.getElementById(`importeBonificacion${i}`).value||'',
-					subtotal: document.getElementById(`subtotal${i}`).value||'',
-					alicuotaIVA: document.getElementById(`alicuotaIVA${i}`).value||'',
-					importe: document.getElementById(`importe${i}`).value||'',
-					subtotalConIVA: document.getElementById(`subtotalConIVA${i}`).value||''
-				});
+				if(!document.getElementById(`codigo${i}`).disabled){
+					table.push({
+						codigo: document.getElementById(`codigo${i}`).value||'',
+						ProductoServicio: document.getElementById(`ProductoServicio${i}`).value||'',
+						cantidad: document.getElementById(`cantidad${i}`).value||'',
+						uDeMedida: document.getElementById(`uDeMedida${i}`).value||'',
+						precioUnitario: document.getElementById(`precioUnitario${i}`).value||'',
+						bonificacion: document.getElementById(`bonificacion${i}`).value||'',
+						importeBonificacion: document.getElementById(`importeBonificacion${i}`).value||'',
+						subtotal: document.getElementById(`subtotal${i}`).value||'',
+						alicuotaIVA: document.getElementById(`alicuotaIVA${i}`).value||'',
+						importe: document.getElementById(`importe${i}`).value||'',
+						subtotalConIVA: document.getElementById(`subtotalConIVA${i}`).value||''
+					});
+				}
 			}
 			const data = {table: table};
-			for(let i=0;i<otrosCampos.length;i++) data[otrosCampos[i]] = document.getElementById(otrosCampos[i]).value||'';
+			for(let i=0;i<otrosCampos.length;i++) data[otrosCampos[i]] = document.getElementById(otrosCampos[i]).value || '';
+			for(let i=0;i<totales.length;i++) data[totales[i]] = document.getElementById(totales[i]).value || '';
 
 			localStorage.setItem('DataPaso4', JSON.stringify(data));
 			window.location.href="final.html";
